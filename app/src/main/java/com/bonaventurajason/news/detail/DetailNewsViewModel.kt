@@ -14,7 +14,4 @@ class DetailNewsViewModel @ViewModelInject constructor(private val newsUseCase: 
 
     fun insertNews(news: News) = newsUseCase.insertNews(news)
     fun deleteNews(title: String) = newsUseCase.deleteNews(title)
-
-    val allFavouriteNews = newsUseCase.getAllFavouriteNews().asLiveData()
-
 }

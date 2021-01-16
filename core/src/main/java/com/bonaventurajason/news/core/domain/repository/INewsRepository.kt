@@ -1,7 +1,6 @@
 package com.bonaventurajason.news.core.domain.repository
 
 import com.bonaventurajason.news.core.data.source.Resource
-import com.bonaventurajason.news.core.data.source.local.entity.NewsEntity
 import com.bonaventurajason.news.core.domain.model.News
 import kotlinx.coroutines.flow.Flow
 

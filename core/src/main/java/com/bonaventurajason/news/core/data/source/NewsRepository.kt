@@ -1,7 +1,6 @@
 package com.bonaventurajason.news.core.data.source
 
 import com.bonaventurajason.news.core.data.source.local.LocalDataSource
-import com.bonaventurajason.news.core.data.source.local.entity.NewsEntity
 import com.bonaventurajason.news.core.data.source.remote.RemoteDataSource
 import com.bonaventurajason.news.core.data.source.remote.network.ApiResponse
 import com.bonaventurajason.news.core.domain.model.News

@@ -13,7 +13,6 @@ import com.bonaventurajason.news.core.domain.model.News
 import com.bonaventurajason.news.databinding.FragmentDetailNewsBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @AndroidEntryPoint

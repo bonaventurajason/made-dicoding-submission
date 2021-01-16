@@ -23,4 +23,14 @@
             android:name="news"
             app:argType="com.bonaventurajason.news.core.domain.model.News" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.bonaventurajason.news.favourite.FavouriteFragment"
+        app:moduleName="favourite"
+        android:label="Favourite News"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
 </navigation>

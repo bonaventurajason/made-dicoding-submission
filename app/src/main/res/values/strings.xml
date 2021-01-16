@@ -5,4 +5,6 @@
 
     <string name="not_favourite_news">News has been removed from Favourite.</string>
     <string name="favourite_news">News has been added to Favourite.</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="favourite_menu">Favourite</string>
 </resources>

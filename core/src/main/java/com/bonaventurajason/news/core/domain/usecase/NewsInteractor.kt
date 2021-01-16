@@ -1,6 +1,5 @@
 package com.bonaventurajason.news.core.domain.usecase
 
-import com.bonaventurajason.news.core.data.source.Resource
 import com.bonaventurajason.news.core.domain.model.News
 import com.bonaventurajason.news.core.domain.repository.INewsRepository
 import kotlinx.coroutines.flow.Flow
