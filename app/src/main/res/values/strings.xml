@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">News Dicoding</string>
     <string name="fab">fab</string>
-    <string name="search_hint">Search news...</string>
+    <string name="search_hint">Search news…</string>
+
+    <string name="not_favourite_news">News has been removed from Favourite.</string>
+    <string name="favourite_news">News has been added to Favourite.</string>
 </resources>

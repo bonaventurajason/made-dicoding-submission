@@ -10,4 +10,11 @@ class NewsInteractor @Inject constructor(private val newsRepository: INewsReposi
     NewsUseCase {
     override suspend fun getAllNews() = newsRepository.getAllNews()
     override suspend fun searchNews(searchQuery: String) = newsRepository.searchNews(searchQuery)
+    override fun insertNews(news: News)  = newsRepository.insertNews(news)
+
+    override fun deleteNews(title: String) = newsRepository.deleteNews(title)
+
+    override fun getAllFavouriteNews(): Flow<List<News>> = newsRepository.getAllFavouriteNews()
+
+    override fun checkFavouriteNews(title: String): Flow<News> = newsRepository.checkFavouriteNews(title)
 }

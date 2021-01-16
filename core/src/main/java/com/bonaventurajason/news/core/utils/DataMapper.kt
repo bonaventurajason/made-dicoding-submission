@@ -9,10 +9,10 @@ object DataMapper {
         val newsList = ArrayList<NewsEntity>()
         input.map {
             val news = NewsEntity(
-                publishedAt = it.publishedAt ?: "",
-                urlToImage = it.urlToImage ?: "",
-                title = it.title ?: "",
-                url = it.url ?: ""
+                publishedAt = it.publishedAt,
+                urlToImage = it.urlToImage,
+                title = it.title,
+                url = it.url
             )
             newsList.add(news)
         }
@@ -28,6 +28,14 @@ object DataMapper {
                 url = it.url
             )
         }
+    fun mapEntityToDomain(input: NewsEntity?): News =
+            News(
+                publishedAt = input?.publishedAt,
+                urlToImage = input?.urlToImage,
+                title = input?.title,
+                url = input?.url
+            )
+
 
     fun mapDomainToEntity(input: News) = NewsEntity(
         publishedAt = input.publishedAt,
@@ -40,10 +48,10 @@ object DataMapper {
         val newsList = ArrayList<News>()
         input.map {
             val news = News(
-                publishedAt = it.publishedAt ?: "",
-                urlToImage = it.urlToImage ?: "",
-                title = it.title ?: "",
-                url = it.url ?: ""
+                publishedAt = it.publishedAt,
+                urlToImage = it.urlToImage,
+                title = it.title,
+                url = it.url
             )
             newsList.add(news)
         }

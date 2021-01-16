@@ -10,15 +10,15 @@ import kotlinx.coroutines.launch
 class HomeViewModel @ViewModelInject constructor(private val newsUseCase: NewsUseCase) :
     ViewModel() {
 
-        fun getNews() : LiveData<Resource<List<News>>>{
-            lateinit var news : LiveData<Resource<List<News>>>
-            viewModelScope.launch {
-                news = newsUseCase.getAllNews().asLiveData()
-            }
-            return news
+    fun getNews(): LiveData<Resource<List<News>>> {
+        lateinit var news: LiveData<Resource<List<News>>>
+        viewModelScope.launch {
+            news = newsUseCase.getAllNews().asLiveData()
         }
+        return news
+    }
 
-    fun searchNews(searchQuery: String) : LiveData<Resource<List<News>>>{
+    fun searchNews(searchQuery: String): LiveData<Resource<List<News>>> {
         lateinit var searchNews: LiveData<Resource<List<News>>>
         viewModelScope.launch {
             searchNews = newsUseCase.searchNews(searchQuery).asLiveData()

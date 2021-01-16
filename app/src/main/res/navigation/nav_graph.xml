@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detailNewsFragment"
         android:name="com.bonaventurajason.news.detail.DetailNewsFragment"
-        android:label="DetailNewsFragment"
+        android:label="Detail News"
         tools:layout="@layout/fragment_detail_news">
         <argument
             android:name="news"

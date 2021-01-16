@@ -11,16 +11,16 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "news")
 data class NewsEntity(
     @ColumnInfo(name = "publishedAt")
-    var publishedAt: String,
+    var publishedAt: String?,
 
     @ColumnInfo(name = "urlToImage")
-    var urlToImage: String,
+    var urlToImage: String?,
 
     @ColumnInfo(name = "title")
-    var title: String,
+    var title: String?,
 
     @ColumnInfo(name = "url")
-    var url: String
+    var url: String?
 ) : Parcelable{
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
