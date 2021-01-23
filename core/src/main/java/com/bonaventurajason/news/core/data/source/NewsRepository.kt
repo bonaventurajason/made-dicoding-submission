@@ -18,7 +18,7 @@ class NewsRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : INewsRepository {
-    override suspend fun getAllNews(): Flow<Resource<List<News>>> {
+    override fun getAllNews(): Flow<Resource<List<News>>> {
         return flow {
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.getAllNews().first()) {
@@ -37,7 +37,7 @@ class NewsRepository @Inject constructor(
 
     }
 
-    override suspend fun searchNews(searchQuery: String): Flow<Resource<List<News>>> {
+    override fun searchNews(searchQuery: String): Flow<Resource<List<News>>> {
         return flow {
             emit(Resource.Loading())
             when (val apiResponse = remoteDataSource.searchNews(searchQuery).first()) {

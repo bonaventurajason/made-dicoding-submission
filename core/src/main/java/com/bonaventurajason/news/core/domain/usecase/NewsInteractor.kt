@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class NewsInteractor @Inject constructor(private val newsRepository: INewsRepository) :
     NewsUseCase {
-    override suspend fun getAllNews() = newsRepository.getAllNews()
-    override suspend fun searchNews(searchQuery: String) = newsRepository.searchNews(searchQuery)
+    override fun getAllNews() = newsRepository.getAllNews()
+    override fun searchNews(searchQuery: String) = newsRepository.searchNews(searchQuery)
     override fun insertNews(news: News)  = newsRepository.insertNews(news)
 
     override fun deleteNews(title: String) = newsRepository.deleteNews(title)

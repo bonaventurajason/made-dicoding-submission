@@ -46,8 +46,23 @@ class HomeFragment : Fragment() {
                     )
                 )
             }
+            homeViewModel.headlineNews.observe(viewLifecycleOwner, { news ->
+                if (news != null) {
+                    when (news) {
+                        is Resource.Loading -> showProgressBar()
+                        is Resource.Success -> {
+                            hideProgressBar()
+                            newsAdapter.differ.submitList(news.data)
+                        }
+                        is Resource.Error -> {
+                            hideProgressBar()
+                            Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
 
-            homeViewModel.getNews().observe(viewLifecycleOwner, { news ->
+            homeViewModel.news.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
                         is Resource.Loading -> showProgressBar()
@@ -66,6 +81,7 @@ class HomeFragment : Fragment() {
             with(binding.recyclerView) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = newsAdapter
+                itemAnimator = null
             }
 
             searchUser()
@@ -82,22 +98,7 @@ class HomeFragment : Fragment() {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query != null) {
-                        homeViewModel.searchNews(query).observe(viewLifecycleOwner, { news ->
-                            if (news != null) {
-                                when (news) {
-                                    is Resource.Loading -> showProgressBar()
-                                    is Resource.Success -> {
-                                        hideProgressBar()
-                                        newsAdapter.differ.submitList(news.data)
-                                    }
-                                    is Resource.Error -> {
-                                        hideProgressBar()
-                                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG)
-                                            .show()
-                                    }
-                                }
-                            }
-                        })
+                        homeViewModel.searchNews(query)
                     }
                     return true
                 }

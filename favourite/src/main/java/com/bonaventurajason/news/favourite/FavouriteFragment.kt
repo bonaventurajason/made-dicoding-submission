@@ -68,10 +68,13 @@ class FavouriteFragment : Fragment() {
                     Timber.d("News $news")
                     newsAdapter.differ.submitList(news)
                 }
+                binding.viewEmpty.root.visibility = if (news.isNotEmpty()) View.GONE else View.VISIBLE
+
             })
 
             with(binding.recyclerView) {
                 layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
                 adapter = newsAdapter
             }
         }
