@@ -1,14 +1,13 @@
 package com.bonaventurajason.news.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bonaventurajason.news.R
 import com.bonaventurajason.news.core.data.source.Resource
@@ -29,6 +28,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,10 +40,13 @@ class HomeFragment : Fragment() {
             newsAdapter = NewsAdapter()
 
             newsAdapter.setOnItemClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailNewsFragment(it))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDetailNewsFragment(
+                        it
+                    )
+                )
             }
-
-            homeViewModel.getNews().observe(viewLifecycleOwner, { news ->
+            homeViewModel.headlineNews.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
                         is Resource.Loading -> showProgressBar()
@@ -59,9 +62,26 @@ class HomeFragment : Fragment() {
                 }
             })
 
-            with(binding.recyclerView){
+            homeViewModel.news.observe(viewLifecycleOwner, { news ->
+                if (news != null) {
+                    when (news) {
+                        is Resource.Loading -> showProgressBar()
+                        is Resource.Success -> {
+                            hideProgressBar()
+                            newsAdapter.differ.submitList(news.data)
+                        }
+                        is Resource.Error -> {
+                            hideProgressBar()
+                            Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
+
+            with(binding.recyclerView) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = newsAdapter
+                itemAnimator = null
             }
 
             searchUser()
@@ -75,24 +95,10 @@ class HomeFragment : Fragment() {
             isFocusable = false
             isFocusableInTouchMode = true
             clearFocus()
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    if(query != null){
-                        homeViewModel.searchNews(query).observe(viewLifecycleOwner, { news ->
-                            if (news != null) {
-                                when (news) {
-                                    is Resource.Loading -> showProgressBar()
-                                    is Resource.Success -> {
-                                        hideProgressBar()
-                                        newsAdapter.differ.submitList(news.data)
-                                    }
-                                    is Resource.Error -> {
-                                        hideProgressBar()
-                                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
-                                    }
-                                }
-                            }
-                        })
+                    if (query != null) {
+                        homeViewModel.searchNews(query)
                     }
                     return true
                 }
@@ -111,6 +117,18 @@ class HomeFragment : Fragment() {
 
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {

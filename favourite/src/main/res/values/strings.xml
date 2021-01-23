@@ -1,0 +1,5 @@
+<resources>
+
+    <string name="empty">Empty</string>
+    <string name="empty_description">List of favourite is empty</string>
+</resources>

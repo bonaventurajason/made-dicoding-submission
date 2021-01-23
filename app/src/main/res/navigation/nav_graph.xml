@@ -17,10 +17,20 @@
     <fragment
         android:id="@+id/detailNewsFragment"
         android:name="com.bonaventurajason.news.detail.DetailNewsFragment"
-        android:label="DetailNewsFragment"
+        android:label="Detail News"
         tools:layout="@layout/fragment_detail_news">
         <argument
             android:name="news"
             app:argType="com.bonaventurajason.news.core.domain.model.News" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.bonaventurajason.news.favourite.FavouriteFragment"
+        app:moduleName="favourite"
+        android:label="Favourite News"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
     </fragment>
 </navigation>
