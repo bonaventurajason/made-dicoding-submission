@@ -70,7 +70,7 @@ class DetailNewsFragment : Fragment(){
 
     private fun checkIsNewsFavourite(title: String) {
         viewModel.checkFavouriteNews(title).observe(viewLifecycleOwner, { news ->
-            Timber.d("News adalah : $news")
+            Timber.d("News  : $news")
             isFavourite = if(news.title != null){
                 binding.fab.setImageResource(R.drawable.ic_thumb_down)
                 true
